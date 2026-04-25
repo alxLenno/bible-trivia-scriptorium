@@ -1,0 +1,107 @@
+.results-viewport {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.summary-card {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-bottom: 4rem;
+}
+
+.victory-crown {
+  margin-bottom: 1.5rem;
+}
+
+.trophy-icon {
+  color: var(--primary-gold);
+  filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.4));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.summary-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.points-display {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.points-val {
+  font-size: 6rem;
+  font-weight: 900;
+  line-height: 1;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.points-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.3em;
+}
+
+.battle-standings {
+  margin-bottom: 3.5rem;
+  text-align: left;
+}
+
+.battle-standings h3 {
+  font-size: 1.25rem;
+  color: var(--primary-gold);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.standings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.standing-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border-light);
+}
+
+.standing-row.is-winner {
+  background: rgba(197, 160, 89, 0.08);
+  border-color: var(--primary-gold);
+}
+
+.row-rank { font-size: 1.25rem; font-weight: 800; width: 30px; }
+.row-avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--glass-border); }
+.row-name { flex: 1; font-weight: 700; font-size: 1.1rem; }
+.row-points { font-weight: 800; color: var(--primary-gold); }
+.row-status { font-size: 0.75rem; color: var(--text-muted); font-style: italic; }
+
+.results-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .points-val { font-size: 4rem; }
+  .results-actions { flex-direction: column; }
+}
+

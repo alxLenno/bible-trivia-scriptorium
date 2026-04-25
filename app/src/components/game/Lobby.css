@@ -1,0 +1,229 @@
+.lobby-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.lobby-card {
+  padding: 3rem;
+  text-align: center;
+}
+
+.lobby-header {
+  margin-bottom: 2.5rem;
+}
+
+.lobby-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(227, 11, 93, 0.1);
+  color: var(--razzmatazz);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+  border: 1px solid rgba(227, 11, 93, 0.2);
+}
+
+.lobby-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.room-code-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+}
+
+.code-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.code-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.code-value {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: var(--primary-gold);
+  line-height: 1;
+}
+
+.copy-action-btn {
+  background: var(--glass-bg);
+  border: 1.5px solid var(--primary-gold);
+  color: var(--primary-gold);
+  padding: 10px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy-action-btn:hover {
+  background: var(--primary-gold);
+  color: #000;
+}
+
+.lobby-prep-status {
+  margin-bottom: 2.5rem;
+}
+
+.prep-loader {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.prep-fill {
+  height: 100%;
+  width: 40%;
+  background: var(--gold-gradient);
+  animation: prepSlide 2s ease-in-out infinite;
+}
+
+@keyframes prepSlide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+
+.lobby-prep-status p {
+  font-size: 0.85rem;
+  color: var(--primary-gold);
+  font-style: italic;
+  margin: 0;
+}
+
+.players-registry {
+  text-align: left;
+  margin-bottom: 3rem;
+}
+
+.registry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.registry-header h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.player-count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.player-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 14px;
+  border: 1px solid var(--glass-border-light);
+}
+
+.player-entry.is-me {
+  border-color: rgba(227, 11, 93, 0.3);
+  background: rgba(227, 11, 93, 0.05);
+}
+
+.player-avatar-wrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+}
+
+.player-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--glass-border);
+}
+
+.host-crown {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 14px;
+}
+
+.player-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.host-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  background: var(--primary-gold);
+  color: #000;
+  border-radius: 100px;
+}
+
+.waiting-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 100px;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-gold);
+  border-radius: 50%;
+  animation: pulseGold 2s infinite;
+}
+
+@keyframes pulseGold {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(197, 160, 89, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+}
+
+.start-battle-btn {
+  width: 100%;
+  padding: 1.25rem;
+}

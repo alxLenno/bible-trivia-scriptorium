@@ -1,0 +1,113 @@
+.admin-viewport {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.admin-card {
+  padding: 3rem;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.admin-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.razz-icon { color: var(--razzmatazz); }
+
+.admin-content {
+  overflow: hidden;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  text-align: left;
+  padding: 1.25rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.admin-table td {
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-size: 0.95rem;
+}
+
+.cell-user {
+  min-width: 200px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+}
+
+.user-thumb-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--razzmatazz);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+}
+
+.user-nick { font-weight: 700; color: #fff; }
+
+.cell-uid code {
+  background: rgba(255,255,255,0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.cell-val { font-weight: 700; }
+.cell-val.gold { color: var(--primary-gold); }
+.cell-val.razz { color: var(--razzmatazz); }
+
+.text-right { text-align: right; }
+
+.loading-state, .empty-row {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+@media (max-width: 1000px) {
+  .admin-card { padding: 1.5rem; }
+  .admin-header { flex-direction: column; gap: 1.5rem; text-align: center; }
+}

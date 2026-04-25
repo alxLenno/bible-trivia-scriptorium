@@ -1,0 +1,39 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build outputs
+dist/
+build/
+.vercel/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env/
+
+# Data
+*.sqlite
+*.db
+
+# Other
+*.zip
+*.log
+.gemini/
+FPOC2_AI-Tutor_Chatbot/
+FPOC2_AI-Tutor_Chatbot*/
+

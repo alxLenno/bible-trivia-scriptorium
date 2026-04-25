@@ -1,0 +1,35 @@
+/* 
+  Global Styles for the SCRIPTORIUM App
+  Most component-specific styles have been moved to their respective files in components/
+*/
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Common Layout Utilities */
+.text-center { text-align: center; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+
+/* Bible Reference Link */
+.bible-ref-link {
+  color: var(--primary-gold);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.bible-ref-link:hover {
+  color: #fff;
+  background: rgba(197, 160, 89, 0.2);
+  border-radius: 4px;
+}

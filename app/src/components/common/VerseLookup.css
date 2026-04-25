@@ -1,0 +1,145 @@
+/* Fixed Popover — appears at click position */
+.lookup-popover {
+  position: fixed;
+  z-index: 9999;
+  width: 380px;
+  max-height: 340px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(12, 10, 8, 0.96);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 160, 89, 0.08);
+  overflow: hidden;
+}
+
+.lookup-header {
+  padding: 0.6rem 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.lookup-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lookup-title h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  color: var(--primary-gold);
+}
+
+.close-lookup-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-lookup-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+/* Version pills */
+.version-pills {
+  display: flex;
+  gap: 5px;
+  padding: 0.4rem 0.85rem;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.version-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.version-pill:hover {
+  background: rgba(197, 160, 89, 0.08);
+  color: var(--primary-gold);
+  border-color: rgba(197, 160, 89, 0.15);
+}
+
+.version-pill.active {
+  background: rgba(197, 160, 89, 0.15);
+  color: var(--primary-gold);
+  border-color: rgba(197, 160, 89, 0.35);
+}
+
+/* Content area */
+.lookup-content {
+  flex: 1;
+  padding: 0.6rem 0.85rem;
+  overflow-y: auto;
+}
+
+.lookup-loading, .lookup-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 0.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.verses-display {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.verse-row {
+  display: flex;
+  gap: 0.6rem;
+  line-height: 1.5;
+}
+
+.verse-num {
+  font-weight: 800;
+  color: var(--primary-gold);
+  font-size: 0.7rem;
+  margin-top: 2px;
+  min-width: 16px;
+  text-align: right;
+}
+
+.verse-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .lookup-popover {
+    width: calc(100vw - 32px);
+    left: 16px !important;
+  }
+}

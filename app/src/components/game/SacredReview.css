@@ -1,0 +1,159 @@
+/* Sacred Review Component Styles */
+.review-area {
+  text-align: left;
+}
+
+.review-title {
+  font-size: 1.75rem;
+  color: var(--text-main);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.review-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.review-item {
+  padding: 2.5rem;
+}
+
+.review-item.is-correct { border-left: 6px solid #22c55e; }
+.review-item.is-wrong { border-left: 6px solid #ef4444; }
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.q-number { font-size: 0.75rem; font-weight: 900; color: var(--text-muted); letter-spacing: 0.1em; }
+
+.q-status-badge {
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.q-status-badge.correct { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.q-status-badge.wrong { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+.review-text { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.4; }
+
+.review-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.review-opt {
+  padding: 1rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--glass-border-light);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.review-opt.correct { border-color: #22c55e; color: #22c55e; background: rgba(34, 197, 94, 0.05); }
+.review-opt.wrong { border-color: #ef4444; color: #ef4444; background: rgba(239, 68, 68, 0.05); }
+
+.review-insight {
+  background: rgba(255,255,255,0.02);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.review-insight label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: var(--primary-gold);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+.review-insight p { margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--text-muted); }
+
+@media (max-width: 640px) {
+  .review-options { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body, .app-container, .profile-hub, .game-viewport {
+    background: white !important;
+    color: black !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .main-header, footer, .summary-card, .results-actions, .game-warning-bar, .profile-hero, .stats-dashboard-grid, .section-header, .review-btn, .modal-close-btn {
+    display: none !important;
+  }
+  
+  .review-area {
+    width: 100%;
+    margin: 0;
+    padding: 1rem;
+  }
+  
+  .glass-panel {
+    background: white !important;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+  
+  .review-title {
+    color: black !important;
+    text-align: center;
+    margin-top: 0;
+  }
+  
+  .review-item {
+    page-break-inside: avoid;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 0;
+  }
+  
+  .review-item.is-correct { border-left: 6px solid #22c55e !important; }
+  .review-item.is-wrong { border-left: 6px solid #ef4444 !important; }
+  
+  .review-text { color: black !important; }
+  
+  .review-opt {
+    border: 1px solid #ccc !important;
+    color: #333 !important;
+    background: white !important;
+  }
+  
+  .review-opt.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
+  .review-opt.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+  
+  .review-insight {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+  
+  .review-insight p { color: #333 !important; }
+
+  /* Ensure modal content is visible when printing from profile */
+  .history-modal-overlay {
+    position: absolute !important;
+    background: white !important;
+    padding: 0 !important;
+  }
+  .history-modal-content {
+    box-shadow: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+}
