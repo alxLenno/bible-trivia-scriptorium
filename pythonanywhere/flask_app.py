@@ -11,7 +11,7 @@ from ai_handler import handle_chat, handle_generate_trivia
 
 app = Flask(__name__)
 # Allow CORS from your Vercel address and localhost
-CORS(app, origins=["https://scriptorium-trivia-frontend1.vercel.app", "http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://127.0.0.1:5175"])
+CORS(app, origins=["https://app-chi-brown-16.vercel.app", "https://scriptorium-trivia-frontend1.vercel.app", "http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://127.0.0.1:5175"])
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rooms.db')
 

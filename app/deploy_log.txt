@@ -1,0 +1,47 @@
+Retrieving project…
+Deploying alxlennos-projects/app
+Uploading [--------------------] (0.0B/55B)
+Uploading [====================] (55.0B/55B)
+Inspect: https://vercel.com/alxlennos-projects/app/395u7FnY27kfLUWgkspRACEnFxQm [3s]
+Production: https://app-5u4hn5kur-alxlennos-projects.vercel.app [3s]
+https://app-5u4hn5kur-alxlennos-projects.vercel.appBuilding...
+Building...
+Building: Running build in Washington, D.C., USA (East) – iad1
+Building: Build machine configuration: 2 cores, 8 GB
+Building: Retrieving list of deployment files...
+Building: Previous build caches not available.
+Building: Downloading 73 deployment files...
+Building: Running "vercel build"
+Building: Vercel CLI 51.6.1
+Building: Installing dependencies...
+Building: added 321 packages in 10s
+Building: 105 packages are looking for funding
+Building: run `npm fund` for details
+Building: Running "npm run build"
+Building: > app@0.0.0 build
+Building: > vite build
+Building: vite v8.0.8 building client environment for production...
+Building: transforming...✓ 2327 modules transformed.
+Building: ✗ Build failed in 494ms
+Building: error during build:
+Building: Build failed with 1 error:
+Building: [plugin vite:prepare-out-dir]
+Building: Error: ENOENT: no such file or directory, stat '/vercel/path0/public/bible'
+Building: at Object.statSync (node:fs:1681:25)
+Building: at copyDir (file:///vercel/path0/node_modules/vite/dist/node/chunks/node.js:1903:10)
+Building: at prepareOutDir (file:///vercel/path0/node_modules/vite/dist/node/chunks/node.js:32716:4)
+Building: at PluginContextImpl.handler (file:///vercel/path0/node_modules/vite/dist/node/chunks/node.js:32699:6)
+Building: at PluginContextImpl.handler (file:///vercel/path0/node_modules/vite/dist/node/chunks/node.js:33214:13)
+Building: at plugin (file:///vercel/path0/node_modules/rolldown/dist/shared/bindingify-input-options-DYpBf1OG.mjs:1255:12)
+Building: at plugin.<computed> (file:///vercel/path0/node_modules/rolldown/dist/shared/bindingify-input-options-DYpBf1OG.mjs:1636:18)
+Building: at aggregateBindingErrorsIntoJsError (file:///vercel/path0/node_modules/rolldown/dist/shared/error-w0u7biK-.mjs:48:18)
+Building: at unwrapBindingResult (file:///vercel/path0/node_modules/rolldown/dist/shared/error-w0u7biK-.mjs:18:128)
+Building: at #build (file:///vercel/path0/node_modules/rolldown/dist/shared/rolldown-build-DtGk-m96.mjs:3313:34)
+Building: at async buildEnvironment (file:///vercel/path0/node_modules/vite/dist/node/chunks/node.js:32954:64)
+Building: at async Object.build (file:///vercel/path0/node_modules/vite/dist/node/chunks/node.js:33376:19)
+Building: at async Object.buildApp (file:///vercel/path0/node_modules/vite/dist/node/chunks/node.js:33373:153)
+Building: at async CAC.<anonymous> (file:///vercel/path0/node_modules/vite/dist/node/cli.js:778:3) {
+Building: errors: [Getter/Setter]
+Building: }
+Building: Error: Command "npm run build" exited with 1
+Error: Command "npm run build" exited with 1
