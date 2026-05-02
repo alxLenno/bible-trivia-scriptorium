@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Trophy, ArrowLeft, BarChart3, Download, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Trophy, ArrowLeft, BarChart3, Download, Image as ImageIcon, Loader2, ChevronDown } from 'lucide-react';
 import SacredReview from './SacredReview';
 import { API_BASE } from '../../gameRoom';
 import './Results.css';
@@ -16,34 +16,48 @@ const Results = ({
   onShowGlobalStats 
 }) => {
   const [isExporting, setIsExporting] = useState(false);
+  const [showExportOptions, setShowExportOptions] = useState(false);
 
   const handleExport = async (format) => {
     if (isExporting) return;
     setIsExporting(true);
+    setShowExportOptions(false);
+    
+    console.log(`[EXPORT] Starting ${format} export...`);
+    console.log(`[EXPORT] API_BASE: ${API_BASE}`);
     
     try {
+      const payload = {
+        format,
+        score,
+        questions,
+        userAnswers,
+        config
+      };
+      console.log("[EXPORT] Payload:", payload);
+
       const response = await fetch(`${API_BASE}/export`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          format,
-          score,
-          questions,
-          userAnswers,
-          config
-        })
+        body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error('Export failed');
+      console.log(`[EXPORT] Response status: ${response.status}`);
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Export failed (${response.status}): ${errText}`);
+      }
       
       const blob = await response.blob();
+      console.log(`[EXPORT] Blob received: ${blob.size} bytes`);
       
-      // Get filename from Content-Disposition header if possible
       let filename = `Sacred_Review.${format}`;
       const contentDisposition = response.headers.get('Content-Disposition');
       if (contentDisposition && contentDisposition.indexOf('filename=') !== -1) {
         filename = contentDisposition.split('filename=')[1].replace(/["']/g, '');
       }
+      console.log(`[EXPORT] Filename: ${filename}`);
 
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -54,9 +68,10 @@ const Results = ({
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
+      console.log("[EXPORT] Download triggered successfully");
     } catch (error) {
-      console.error("Export error:", error);
-      alert("Failed to export results. Please try again.");
+      console.error("[EXPORT] Error:", error);
+      alert(`Export failed: ${error.message}`);
     } finally {
       setIsExporting(false);
     }
@@ -103,14 +118,38 @@ const Results = ({
           <button className="btn-outline" onClick={onShowGlobalStats}>
             <BarChart3 size={18} /> Global Rankings
           </button>
-          {questions?.length <= 5 && (
-            <button className="btn-outline" onClick={() => handleExport('png')} disabled={isExporting}>
-              {isExporting ? <Loader2 size={18} className="spin" /> : <ImageIcon size={18} />} Download PNG
+          
+          <div className="export-dropdown-container">
+            <button 
+              className="btn-outline export-toggle" 
+              onClick={() => setShowExportOptions(!showExportOptions)}
+              disabled={isExporting}
+            >
+              {isExporting ? <Loader2 size={18} className="spin" /> : <Download size={18} />}
+              <span>Export Results</span>
+              <ChevronDown size={16} className={`chevron ${showExportOptions ? 'open' : ''}`} />
             </button>
-          )}
-          <button className="btn-outline" onClick={() => handleExport('pdf')} disabled={isExporting}>
-            {isExporting ? <Loader2 size={18} className="spin" /> : <Download size={18} />} Download PDF
-          </button>
+
+            <AnimatePresence>
+              {showExportOptions && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="export-menu glass-panel"
+                >
+                  <button className="export-option" onClick={() => handleExport('pdf')}>
+                    <Download size={16} /> Save as PDF
+                  </button>
+                  {questions?.length <= 5 && (
+                    <button className="export-option" onClick={() => handleExport('png')}>
+                      <ImageIcon size={16} /> Save as PNG Image
+                    </button>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
 
