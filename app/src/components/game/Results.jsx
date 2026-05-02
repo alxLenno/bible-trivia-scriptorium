@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Trophy, ArrowLeft, BarChart3, Download } from 'lucide-react';
+import { Trophy, ArrowLeft, BarChart3, Download, Image as ImageIcon, Loader2 } from 'lucide-react';
 import SacredReview from './SacredReview';
+import { API_BASE } from '../../gameRoom';
 import './Results.css';
 
 const Results = ({ 
@@ -10,9 +11,57 @@ const Results = ({
   roomData, 
   questions, 
   userAnswers, 
+  config,
   resetGame, 
   onShowGlobalStats 
 }) => {
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExport = async (format) => {
+    if (isExporting) return;
+    setIsExporting(true);
+    
+    try {
+      const response = await fetch(`${API_BASE}/export`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          format,
+          score,
+          questions,
+          userAnswers,
+          config
+        })
+      });
+
+      if (!response.ok) throw new Error('Export failed');
+      
+      const blob = await response.blob();
+      
+      // Get filename from Content-Disposition header if possible
+      let filename = `Sacred_Review.${format}`;
+      const contentDisposition = response.headers.get('Content-Disposition');
+      if (contentDisposition && contentDisposition.indexOf('filename=') !== -1) {
+        filename = contentDisposition.split('filename=')[1].replace(/["']/g, '');
+      }
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error("Export error:", error);
+      alert("Failed to export results. Please try again.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 30 }} 
@@ -54,8 +103,13 @@ const Results = ({
           <button className="btn-outline" onClick={onShowGlobalStats}>
             <BarChart3 size={18} /> Global Rankings
           </button>
-          <button className="btn-outline" onClick={() => window.print()} title="Download as PDF">
-            <Download size={18} /> Download PDF
+          {questions?.length <= 5 && (
+            <button className="btn-outline" onClick={() => handleExport('png')} disabled={isExporting}>
+              {isExporting ? <Loader2 size={18} className="spin" /> : <ImageIcon size={18} />} Download PNG
+            </button>
+          )}
+          <button className="btn-outline" onClick={() => handleExport('pdf')} disabled={isExporting}>
+            {isExporting ? <Loader2 size={18} className="spin" /> : <Download size={18} />} Download PDF
           </button>
         </div>
       </div>
