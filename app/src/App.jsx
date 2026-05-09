@@ -355,7 +355,7 @@ const BibleTrivia = () => {
             setChatMessages(JSON.parse(session.messages_json)); 
           }
         }} handleDeleteSession={async id => { if(window.confirm("Delete?")) { await deleteChatSession(id); if(activeSessionId===id) setActiveSessionId(null); fetchSessions(); } }} startNewSession={() => { setActiveSessionId(null); setChatMessages([{ role: 'ai', text: 'New session started.' }]); }} chatMessages={chatMessages} chatLoading={chatLoading} chatInput={chatInput} setChatInput={setChatInput} chatModel={chatModel} setChatModel={setChatModel} handleSendMessage={handleSendMessage} handleVerseLookup={handleVerseLookup} lookupRef={lookupRef} closeLookup={() => setLookupRef(null)} chatScrollRef={chatScrollRef} onExit={() => setGameState('menu')} />}
-        {gameState === 'scriptorium' && <ScriptoriumChat onClose={() => setGameState('menu')} />}
+        {gameState === 'scriptorium' && <ScriptoriumChat onClose={() => setGameState('menu')} handleVerseLookup={handleVerseLookup} lookupRef={lookupRef} closeLookup={() => setLookupRef(null)} />}
         {gameState === 'profile' && <ProfileDashboard user={user} nickname={nickname} setNickname={setNickname} userStats={userStats} userHistory={userHistory} dashboardLoading={dashboardLoading} onEnterAdmin={async () => { setGameState('admin'); setAdminLoading(true); setAdminUsers(await getAllUsers()); setAdminLoading(false); }} onExit={() => setGameState('menu')} onSignOut={() => { signOut(auth); resetGame(); }} />}
         {gameState === 'admin' && <AdminPanel adminUsers={adminUsers} adminLoading={adminLoading} onExit={() => setGameState('profile')} />}
       </main>

@@ -286,6 +286,13 @@
 .diff-pill.active.d-easy { border-color: #22c55e; color: #22c55e; background: rgba(34, 197, 94, 0.05); }
 .diff-pill.active.d-medium { border-color: #eab308; color: #eab308; background: rgba(234, 179, 8, 0.05); }
 .diff-pill.active.d-hard { border-color: #ef4444; color: #ef4444; background: rgba(239, 68, 68, 0.05); }
+.diff-pill.active.d-scriptorium { 
+  border-color: #818cf8; 
+  color: #a5b4fc; 
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(129, 140, 248, 0.05) 100%); 
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
+}
+.diff-pill.d-scriptorium { font-size: 0.7rem; letter-spacing: 0.08em; }
 
 .stats-inputs {
   display: flex;

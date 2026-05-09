@@ -243,13 +243,17 @@ const GameSetup = ({
             <section className="setup-block">
               <label className="section-label"><Zap size={18} /> {t('intensity')}</label>
               <div className="difficulty-pills">
-                {['easy', 'medium', 'hard'].map(d => (
+                {['easy', 'medium', 'hard', 'scriptorium'].map(d => (
                   <button 
                     key={d} 
                     className={`diff-pill ${config.difficulty === d ? 'active' : ''} d-${d}`}
-                    onClick={() => setConfig({ ...config, difficulty: d })}
+                    onClick={() => setConfig({ 
+                      ...config, 
+                      difficulty: d,
+                      ...(d === 'scriptorium' && config.timePerQuestion < 30 ? { timePerQuestion: 30 } : {})
+                    })}
                   >
-                    {t(d)}
+                    {d === 'scriptorium' ? '✦ DEEP' : t(d)}
                   </button>
                 ))}
               </div>
