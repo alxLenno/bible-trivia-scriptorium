@@ -1,5 +1,8 @@
-// Temporarily hardcoded for local testing from Vercel
-export const API_BASE = 'http://127.0.0.1:5555/api'; // import.meta.env.VITE_API_BASE || 'http://127.0.0.1:5555/api';
+// Dynamically switch between local and production
+const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+export const API_BASE = isDevelopment 
+  ? 'http://127.0.0.1:5555/api' 
+  : (import.meta.env.VITE_API_BASE || 'https://abytrivia.pythonanywhere.com/api');
 export const STATS_API = API_BASE;
 
 // Create a new game room
