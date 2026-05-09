@@ -55,6 +55,14 @@ const BibleTextWithRefs = ({ text, onLookup, onSuggestionClick }) => {
     });
   };
 
+  // 4. Helper to extract plain text from React node tree for suggestion clicks
+  const extractText = (node) => {
+    if (typeof node === 'string') return node;
+    if (Array.isArray(node)) return node.map(extractText).join('');
+    if (React.isValidElement(node)) return extractText(node.props.children);
+    return '';
+  };
+
   return (
     <div className="markdown-content">
       <ReactMarkdown
@@ -62,9 +70,7 @@ const BibleTextWithRefs = ({ text, onLookup, onSuggestionClick }) => {
           // Intercept paragraphs, list items, etc. to process their text children
           p: ({ children }) => <p>{processChildren(children)}</p>,
           li: ({ children, ...props }) => {
-            const textContent = React.Children.toArray(children)
-              .map(c => typeof c === 'string' ? c : (c.props?.children?.toString() || ''))
-              .join('');
+            const textContent = extractText(children);
             
             return (
               <li 

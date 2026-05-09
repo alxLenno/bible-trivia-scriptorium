@@ -8,7 +8,7 @@ import './VerseLookup.css';
 const CARD_W = 360;
 const CARD_H = 320;
 
-const VerseLookup = ({ reference, version, position, onClose }) => {
+const VerseLookup = ({ reference, version, position, onClose, theme }) => {
   const [loading, setLoading] = useState(true);
   const [verses, setVerses] = useState([]);
   const [error, setError] = useState(null);
@@ -88,12 +88,12 @@ const VerseLookup = ({ reference, version, position, onClose }) => {
       transition={{ duration: 0.15 }}
       drag
       dragMomentum={false}
-      className="lookup-popover"
+      className={`lookup-popover ${theme === 'scriptorium' ? 'scriptorium-theme' : ''}`}
       style={{ left: `${left}px`, top: `${top}px` }}
     >
       <div className="lookup-header drag-handle" style={{ cursor: 'grab' }}>
         <div className="lookup-title">
-          <BookOpen size={14} className="gold-icon" />
+          <BookOpen size={14} className={theme === 'scriptorium' ? 'scriptorium-icon-inline' : 'gold-icon'} />
           <h4>{reference}</h4>
         </div>
         <button 

@@ -19,6 +19,7 @@ const ScriptoriumChat = ({ onClose, initialContext = {}, handleVerseLookup, look
   const [isLoading, setIsLoading] = useState(false);
   const [context, setContext] = useState(initialContext);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
   
   const audioQueueRef = useRef([]);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -76,6 +77,7 @@ const ScriptoriumChat = ({ onClose, initialContext = {}, handleVerseLookup, look
 
     const userMessage = input.trim();
     setInput('');
+    if (inputRef.current) inputRef.current.style.height = 'auto';
     setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
     setIsLoading(true);
 
@@ -179,17 +181,23 @@ const ScriptoriumChat = ({ onClose, initialContext = {}, handleVerseLookup, look
             version="KJV" 
             position={{ x: lookupRef.x, y: lookupRef.y }}
             onClose={closeLookup} 
+            theme="scriptorium"
           />
         )}
       </AnimatePresence>
 
       <div className="scriptorium-input-area">
         <textarea
+          ref={inputRef}
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            setInput(e.target.value);
+            e.target.style.height = 'auto';
+            e.target.style.height = `${Math.min(e.target.scrollHeight, 150)}px`;
+          }}
           onKeyDown={handleKeyPress}
           placeholder="Ask a question, share an insight, or cite a passage..."
-          rows="2"
+          rows="1"
         />
         <button 
           className="send-btn"
