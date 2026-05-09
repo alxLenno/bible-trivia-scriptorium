@@ -18,6 +18,23 @@ Finally, the AI maps these historical and linguistic insights to the user's pers
 
 Fee and Stuart \cite{fee2003} emphasize that application must always flow from sound exegesis, never from isolated proof-texting. The Scriptorium Framework enforces this principle by requiring that every application reference at least one linguistic or historical insight from the preceding layers.
 
+\subsection{Genre-Sensitive Adaptation}
+A critical dimension of responsible hermeneutics---one that most AI Bible tools entirely ignore---is \textbf{genre awareness}. Fee and Stuart \cite{fee2003} argue that genre is the single most important factor in determining how a passage should be read: a Psalm must be interpreted differently from a Pauline epistle, which must be interpreted differently from an apocalyptic vision. The Scriptorium Framework addresses this by implementing a genre-detection pre-processing layer that adapts the AI's strategy according to the literary form of the passage under study:
+
+\begin{itemize}
+    \item \textbf{Epistles:} The AI focuses on argument structure, rhetorical flow, and the identification of indicatives (what God has done) vs. imperatives (what the reader should do).
+    \item \textbf{Narrative:} The AI identifies plot structure, character development, and the narrator's point of view, resisting the temptation to extract ``moral lessons'' from descriptive passages that were never intended to be prescriptive.
+    \item \textbf{Poetry (Psalms, Proverbs):} The AI analyzes parallelism (synonymous, antithetical, synthetic), metaphor, and emotional register, prioritizing the \textit{affective} dimension of the text over propositional content.
+    \item \textbf{Prophecy \& Apocalyptic:} The AI distinguishes between forthtelling (ethical proclamation) and foretelling (predictive elements), and identifies symbolic imagery that should not be literalized (e.g., the ``beasts'' of Daniel and Revelation).
+\end{itemize}
+
+This genre sensitivity ensures that the ``Linguistic Scalpel'' is calibrated to the right literary instrument: a scalpel for epistles, a paintbrush for poetry, a magnifying glass for narrative.
+
+\subsection{Canonical Context: The Redemptive Arc}
+Individual passage study, no matter how rigorous, risks fragmentation if it is not situated within the broader canonical narrative. Wright \cite{wright2005} argues that the Bible tells a single, coherent ``five-act drama'' (Creation, Fall, Israel, Christ, Church), and that every passage finds its deepest meaning when read as part of this overarching story.
+
+The Scriptorium Framework incorporates this insight by providing an optional ``Canonical Lens'' that the AI can invoke during the Pauline Bridge layer. When studying Philemon, for example, the AI can connect Onesimus's return to the broader biblical theme of reconciliation---from the prodigal son (Luke 15) to the cosmic reconciliation of Colossians 1:20---showing the user that this small personal letter participates in God's grand redemptive project. This ``zooming out'' prevents the user from reducing Scripture to isolated moral lessons and instead reveals the unified heart of the Father across the entire canon.
+
 \begin{figure*}[t!]
 \centering
 \begin{tikzpicture}[node distance=1.8cm, auto, scale=0.9, every node/.style={scale=0.9}]
