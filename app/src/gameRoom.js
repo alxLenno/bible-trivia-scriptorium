@@ -1,6 +1,16 @@
 // Dynamically switch between local and production
+// If URL has ?env=local, use local backend. If ?env=prod, use production backend.
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('env') === 'local') {
+  localStorage.setItem('aby_env', 'local');
+} else if (urlParams.get('env') === 'prod') {
+  localStorage.removeItem('aby_env');
+}
+
+const isLocalOverride = localStorage.getItem('aby_env') === 'local';
 const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-export const API_BASE = isDevelopment 
+
+export const API_BASE = (isDevelopment || isLocalOverride)
   ? 'http://127.0.0.1:5555/api' 
   : (import.meta.env.VITE_API_BASE || 'https://abytrivia.pythonanywhere.com/api');
 export const STATS_API = API_BASE;
