@@ -3,9 +3,11 @@ import { Send, BookOpen, Volume2, Search, X } from 'lucide-react';
 import { sendScriptoriumChat } from './scriptoriumService';
 import { generateTTS } from '../aiService';
 import BibleTextWithRefs from '../components/common/BibleTextWithRefs';
+import VerseLookup from '../components/common/VerseLookup';
+import { AnimatePresence } from 'framer-motion';
 import './ScriptoriumChat.css';
 
-const ScriptoriumChat = ({ onClose, initialContext = {} }) => {
+const ScriptoriumChat = ({ onClose, initialContext = {}, handleVerseLookup, lookupRef, closeLookup }) => {
   const [messages, setMessages] = useState([
     { 
       role: 'ai', 
@@ -140,7 +142,11 @@ const ScriptoriumChat = ({ onClose, initialContext = {} }) => {
                 <div className="scriptorium-badge">Scriptorium Partner</div>
               )}
               <div className="message-text">
-                <BibleTextWithRefs text={msg.text} />
+                <BibleTextWithRefs 
+                  text={msg.text} 
+                  onLookup={handleVerseLookup} 
+                  onSuggestionClick={msg.role === 'ai' ? (text) => setInput(text) : null}
+                />
                 {msg.role === 'ai' && !msg.error && (
                   <button 
                     className={`play-audio-btn ${isPlaying ? 'playing' : ''}`} 
@@ -165,6 +171,17 @@ const ScriptoriumChat = ({ onClose, initialContext = {} }) => {
         )}
         <div ref={messagesEndRef} />
       </div>
+
+      <AnimatePresence>
+        {lookupRef && (
+          <VerseLookup 
+            reference={lookupRef.ref} 
+            version="KJV" 
+            position={{ x: lookupRef.x, y: lookupRef.y }}
+            onClose={closeLookup} 
+          />
+        )}
+      </AnimatePresence>
 
       <div className="scriptorium-input-area">
         <textarea
