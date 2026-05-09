@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, BookOpen, Volume2, Search, X } from 'lucide-react';
 import { sendScriptoriumChat } from './scriptoriumService';
+import { generateTTS } from '../aiService';
+import BibleTextWithRefs from '../components/common/BibleTextWithRefs';
 import './ScriptoriumChat.css';
 
 const ScriptoriumChat = ({ onClose, initialContext = {} }) => {
@@ -15,6 +17,49 @@ const ScriptoriumChat = ({ onClose, initialContext = {} }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [context, setContext] = useState(initialContext);
   const messagesEndRef = useRef(null);
+  
+  const audioQueueRef = useRef([]);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleReadAloud = async (text) => {
+    if (isPlaying) {
+      window.speechSynthesis.cancel(); // Safety stop
+      audioQueueRef.current.forEach(audio => audio.pause());
+      audioQueueRef.current = [];
+      setIsPlaying(false);
+      return;
+    }
+
+    setIsPlaying(true);
+    
+    // 1. Split text into chunks (sentences)
+    const chunks = text.match(/[^.!?]+[.!?]+/g) || [text];
+    
+    const playNext = async (index) => {
+      if (index >= chunks.length) {
+        setIsPlaying(false);
+        return;
+      }
+
+      const audioUrl = await generateTTS(chunks[index]);
+      if (audioUrl) {
+        const audio = new Audio(audioUrl);
+        audioQueueRef.current.push(audio);
+        audio.onended = () => playNext(index + 1);
+        audio.play().catch(e => {
+          console.error("Playback failed", e);
+          playNext(index + 1);
+        });
+      } else {
+        // Fallback to Web Speech if AI TTS fails for a chunk
+        const speech = new SpeechSynthesisUtterance(chunks[index]);
+        speech.onend = () => playNext(index + 1);
+        window.speechSynthesis.speak(speech);
+      }
+    };
+
+    playNext(0);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -95,12 +140,16 @@ const ScriptoriumChat = ({ onClose, initialContext = {} }) => {
                 <div className="scriptorium-badge">Scriptorium Partner</div>
               )}
               <div className="message-text">
-                {msg.text.split('\n').map((line, i) => (
-                  <React.Fragment key={i}>
-                    {line}
-                    {i !== msg.text.split('\n').length - 1 && <br />}
-                  </React.Fragment>
-                ))}
+                <BibleTextWithRefs text={msg.text} />
+                {msg.role === 'ai' && !msg.error && (
+                  <button 
+                    className={`play-audio-btn ${isPlaying ? 'playing' : ''}`} 
+                    onClick={() => handleReadAloud(msg.text)}
+                    style={{ marginTop: '12px' }}
+                  >
+                    {isPlaying ? '⏹ Stop Scribe' : '🔊 Listen to Scribe'}
+                  </button>
+                )}
               </div>
             </div>
           </div>
