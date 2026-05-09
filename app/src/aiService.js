@@ -1,5 +1,6 @@
 import { API_BASE, STATS_API } from './gameRoom';
 import { VERSION_LANGUAGES } from './translations';
+import { generateScriptoriumTriviaSet } from './scriptorium/scriptoriumService';
 
 export const getChatSessions = async (uid) => {
   try {
@@ -235,7 +236,29 @@ export const sendChatToAI = async (message, history = [], modelId = "llama-3-8b"
   }
 };
 
+export const generateTTS = async (text) => {
+  try {
+    const response = await fetch(`${API_BASE}/ai/tts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
+    });
+    const data = await response.json();
+    if (data.success) {
+      return `${import.meta.env.VITE_HF_SPACE_URL || 'https://lennoxkk-trivia-model.hf.space'}${data.audio_url}`;
+    }
+  } catch (error) {
+    console.error("TTS generation failed:", error);
+  }
+  return null;
+};
+
 export const generateAITriviaSet = async (mode, target, count, version, difficulty = "medium") => {
+  // Intercept Scriptorium difficulty and route to the new advanced engine
+  if (difficulty === "scriptorium") {
+    return await generateScriptoriumTriviaSet(mode, target, count, version, difficulty);
+  }
+
   const prompt = buildPrompt(mode, target, count, version, difficulty);
   
   try {

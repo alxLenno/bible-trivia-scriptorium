@@ -1,0 +1,16 @@
+# Ignore everything in out except the keep file
+out/*
+!out/.gitkeep
+
+# Ignore artifacts globally within the latex folder in case of IDE accidents
+*.log
+*.aux
+*.out
+*.pdf
+*.toc
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.latexmkrc

@@ -35,7 +35,7 @@
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1.5rem;
   margin-bottom: 4rem;
 }
@@ -163,4 +163,11 @@
 @media (max-width: 640px) {
   .hero-title { font-size: 2.5rem; }
   .join-form { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 2rem; }
+  .hero-subtitle { font-size: 1rem; }
+  .join-container { padding: 1.5rem; }
+  .menu-card { flex-direction: column; text-align: center; gap: 1rem; padding: 1.5rem; }
 }

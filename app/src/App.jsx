@@ -31,6 +31,7 @@ import AIChat from './components/chat/AIChat';
 import ProfileDashboard from './components/profile/ProfileDashboard';
 import AdminPanel from './components/admin/AdminPanel';
 import VerseLookup from './components/common/VerseLookup';
+import ScriptoriumChat from './scriptorium/ScriptoriumChat';
 
 const BibleTrivia = () => {
   const [user, setUser] = useState(null);
@@ -341,7 +342,7 @@ const BibleTrivia = () => {
     <div className="app-container">
       <Header user={user} gameState={gameState} setGameState={setGameState} onSignIn={handleSignIn} resetGame={resetGame} onOpenDashboard={openGlobalDashboard} />
       <main className="content" style={{ padding: gameState === 'stats' ? 0 : '1rem' }}>
-        {gameState === 'menu' && <Menu onSolo={() => setGameState('setup')} onMulti={() => setGameState('setup-multi')} onChat={() => setGameState('chat')} joinCode={joinCode} setJoinCode={setJoinCode} onJoin={() => handleJoinRoom()} isJoining={isJoining} nickname={nickname} setNickname={setNickname} onConfirmJoin={() => handleJoinRoom()} onCancelJoin={() => setIsJoining(false)} />}
+        {gameState === 'menu' && <Menu onSolo={() => setGameState('setup')} onMulti={() => setGameState('setup-multi')} onChat={() => setGameState('chat')} onScriptorium={() => setGameState('scriptorium')} joinCode={joinCode} setJoinCode={setJoinCode} onJoin={() => handleJoinRoom()} isJoining={isJoining} nickname={nickname} setNickname={setNickname} onConfirmJoin={() => handleJoinRoom()} onCancelJoin={() => setIsJoining(false)} />}
         {(gameState === 'setup' || gameState === 'setup-multi') && <GameSetup isMultiplayer={gameState === 'setup-multi'} config={config} setConfig={setConfig} selectedBook={selectedBook} setSelectedBook={setSelectedBook} searchTerm={searchTerm} setSearchTerm={setSearchTerm} onStart={gameState === 'setup-multi' ? handleCreateRoom : startSoloGame} loading={loading} />}
         {gameState === 'lobby' && <Lobby roomCode={roomCode} roomData={roomData} user={user} onCopyLink={() => { navigator.clipboard.writeText(`${window.location.origin}?room=${roomCode}`); setCopied(true); setTimeout(()=>setCopied(false),2000); }} copied={copied} onStartMultiplayer={() => startRoom(roomCode)} />}
         {gameState === 'playing' && questions.length > 0 && <Gameplay questions={questions} currentIndex={currentIndex} revealed={revealed} timeLeft={timeLeft} config={config} isMultiplayer={isMultiplayer} roomData={roomData} user={user} score={score} combo={combo} answered={answered} selectedAnswer={selectedAnswer} handleAnswer={handleAnswer} nextQuestion={nextQuestion} gracefullyForfeit={() => { if(window.confirm("Forfeit?")) { if(isMultiplayer) forfeitRoom(roomCode, user.uid); setGameState('results'); } }} />}
@@ -354,6 +355,7 @@ const BibleTrivia = () => {
             setChatMessages(JSON.parse(session.messages_json)); 
           }
         }} handleDeleteSession={async id => { if(window.confirm("Delete?")) { await deleteChatSession(id); if(activeSessionId===id) setActiveSessionId(null); fetchSessions(); } }} startNewSession={() => { setActiveSessionId(null); setChatMessages([{ role: 'ai', text: 'New session started.' }]); }} chatMessages={chatMessages} chatLoading={chatLoading} chatInput={chatInput} setChatInput={setChatInput} chatModel={chatModel} setChatModel={setChatModel} handleSendMessage={handleSendMessage} handleVerseLookup={handleVerseLookup} lookupRef={lookupRef} closeLookup={() => setLookupRef(null)} chatScrollRef={chatScrollRef} onExit={() => setGameState('menu')} />}
+        {gameState === 'scriptorium' && <ScriptoriumChat onClose={() => setGameState('menu')} />}
         {gameState === 'profile' && <ProfileDashboard user={user} nickname={nickname} setNickname={setNickname} userStats={userStats} userHistory={userHistory} dashboardLoading={dashboardLoading} onEnterAdmin={async () => { setGameState('admin'); setAdminLoading(true); setAdminUsers(await getAllUsers()); setAdminLoading(false); }} onExit={() => setGameState('menu')} onSignOut={() => { signOut(auth); resetGame(); }} />}
         {gameState === 'admin' && <AdminPanel adminUsers={adminUsers} adminLoading={adminLoading} onExit={() => setGameState('profile')} />}
       </main>

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { BookOpen, Users, Sparkles } from 'lucide-react';
 import './Menu.css';
 
-const Menu = ({ onSolo, onMulti, onChat, joinCode, setJoinCode, onJoin, isJoining, nickname, setNickname, onConfirmJoin, onCancelJoin }) => {
+const Menu = ({ onSolo, onMulti, onChat, onScriptorium, joinCode, setJoinCode, onJoin, isJoining, nickname, setNickname, onConfirmJoin, onCancelJoin }) => {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }} 
@@ -37,6 +37,14 @@ const Menu = ({ onSolo, onMulti, onChat, joinCode, setJoinCode, onJoin, isJoinin
           <div className="card-info">
             <h3>AI Scribe</h3>
             <p>Ask & learn anything</p>
+          </div>
+        </button>
+
+        <button className="menu-card scriptorium-mode" onClick={onScriptorium} style={{ background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))', border: '1px solid rgba(99, 102, 241, 0.3)' }}>
+          <div className="card-icon"><BookOpen size={32} color="#818cf8" /></div>
+          <div className="card-info">
+            <h3 style={{ background: 'linear-gradient(135deg, #e0e7ff 0%, #a5b4fc 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Scriptorium</h3>
+            <p style={{ color: '#94a3b8' }}>Deep Theological Study</p>
           </div>
         </button>
       </div>

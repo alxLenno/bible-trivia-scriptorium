@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Layers, Zap, Hash, Clock, Search } from 'lucide-react';
+import { Layers, Zap, Hash, Clock, Search, Plus, X } from 'lucide-react';
 import { bibleTopics } from '../../constants';
 import { AVAILABLE_VERSIONS, getNativeBookNames } from '../../bibleLookup';
 import { getTranslation } from '../../translations';
@@ -19,6 +19,47 @@ const GameSetup = ({
 }) => {
   const versions = AVAILABLE_VERSIONS;
   const [nativeBooks, setNativeBooks] = useState([]);
+  const [customTopics, setCustomTopics] = useState([]);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newTopic, setNewTopic] = useState({ name: '', references: '' });
+
+  // Load custom topics from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('scriptorium_custom_topics');
+    if (saved) {
+      try {
+        setCustomTopics(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse custom topics", e);
+      }
+    }
+  }, []);
+
+  const saveCustomTopic = () => {
+    if (!newTopic.name) return;
+    const topic = {
+      id: `custom_${Date.now()}`,
+      name: newTopic.name,
+      icon: 'Layers', // Default icon for custom topics
+      references: newTopic.references.split(',').map(r => r.trim()).filter(r => r),
+      isCustom: true
+    };
+    const updated = [...customTopics, topic];
+    setCustomTopics(updated);
+    localStorage.setItem('scriptorium_custom_topics', JSON.stringify(updated));
+    setNewTopic({ name: '', references: '' });
+    setShowAddModal(false);
+  };
+
+  const removeCustomTopic = (id, e) => {
+    e.stopPropagation();
+    const updated = customTopics.filter(t => t.id !== id);
+    setCustomTopics(updated);
+    localStorage.setItem('scriptorium_custom_topics', JSON.stringify(updated));
+    if (config.target === id) setConfig({ ...config, target: null });
+  };
+
+  const allTopics = [...bibleTopics, ...customTopics];
 
   useEffect(() => {
     let isMounted = true;
@@ -78,15 +119,53 @@ const GameSetup = ({
           <section className="setup-block content-area">
             {config.mode === 'topic' && (
               <div className="topics-grid">
-                {bibleTopics.map(t => (
+                {allTopics.map(t => (
                   <button 
                     key={t.id} 
                     className={`topic-card ${config.target === t.id ? 'active' : ''}`}
                     onClick={() => setConfig({ ...config, target: t.id })}
                   >
+                    {t.isCustom && (
+                      <div className="remove-topic" onClick={(e) => removeCustomTopic(t.id, e)}>
+                        <X size={12} />
+                      </div>
+                    )}
                     <span>{t.name}</span>
                   </button>
                 ))}
+                <button className="topic-card add-topic-btn" onClick={() => setShowAddModal(true)}>
+                  <Plus size={24} />
+                  <span>Add New</span>
+                </button>
+              </div>
+            )}
+
+            {/* Custom Topic Modal */}
+            {showAddModal && (
+              <div className="modal-overlay animate-fade-in">
+                <div className="glass-panel modal-content">
+                  <h3>Add Custom Topic</h3>
+                  <div className="form-group">
+                    <label>Topic Name</label>
+                    <input 
+                      placeholder="e.g. Parables" 
+                      value={newTopic.name}
+                      onChange={e => setNewTopic({ ...newTopic, name: e.target.value })}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Bible References (comma separated)</label>
+                    <input 
+                      placeholder="e.g. Luke 15:1, Matthew 13:1" 
+                      value={newTopic.references}
+                      onChange={e => setNewTopic({ ...newTopic, references: e.target.value })}
+                    />
+                  </div>
+                  <div className="modal-actions">
+                    <button className="btn-outline" onClick={() => setShowAddModal(false)}>Cancel</button>
+                    <button className="btn-primary" onClick={saveCustomTopic} disabled={!newTopic.name}>Save Topic</button>
+                  </div>
+                </div>
               </div>
             )}
 

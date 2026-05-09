@@ -278,12 +278,14 @@
   backdrop-filter: blur(8px);
   border: 1px solid rgba(197, 160, 89, 0.12);
   border-radius: 16px;
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .gd-table {
   width: 100%;
   border-collapse: collapse;
+  white-space: nowrap;
 }
 
 .gd-table thead th {
@@ -500,4 +502,8 @@
   .gd-podium { grid-template-columns: 1fr; }
   .gd-topnav { display: none; }
   .gd-topbar-right .gd-topnav-item { display: none; }
+  .gd-body { padding: 1rem; }
+  .gd-podium-card { padding: 1.5rem; }
+  .gd-podium-card.rank-1 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+  .gd-topbar-inner { padding: 0 1rem; }
 }

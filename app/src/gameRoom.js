@@ -1,4 +1,5 @@
-export const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:5555/api';
+// Temporarily hardcoded for local testing from Vercel
+export const API_BASE = 'http://127.0.0.1:5555/api'; // import.meta.env.VITE_API_BASE || 'http://127.0.0.1:5555/api';
 export const STATS_API = API_BASE;
 
 // Create a new game room

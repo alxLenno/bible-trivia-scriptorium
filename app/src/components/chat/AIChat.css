@@ -189,15 +189,37 @@
 
 .play-audio-btn {
   margin-top: 1rem;
-  background: rgba(197, 160, 89, 0.1);
-  border: 1px solid var(--primary-gold);
+  background: rgba(197, 160, 89, 0.05);
+  border: 1px solid rgba(197, 160, 89, 0.4);
   color: var(--primary-gold);
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 8px;
   font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.play-audio-btn:hover {
+  background: rgba(197, 160, 89, 0.15);
+  border-color: var(--primary-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(197, 160, 89, 0.1);
+}
+
+.play-audio-btn.playing {
+  background: var(--primary-gold);
+  color: #1a150a;
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+}
+
+.play-audio-btn.playing:hover {
+  background: #d4af37;
+  transform: scale(1.02);
 }
 
 .loading-bubble { display: flex; padding: 1rem 1.5rem !important; }
@@ -266,6 +288,13 @@
   .chat-layout { height: 80vh; }
   .chat-history-sidebar.open { width: 200px; }
   .msg-bubble { max-width: 90%; }
+}
+
+@media (max-width: 480px) {
+  .chat-layout { height: 85vh; padding: 0.5rem; }
+  .msg-bubble { max-width: 95%; padding: 1rem; }
+  .chat-interface-header { padding: 1rem; flex-wrap: wrap; gap: 1rem; }
+  .chat-input-wrapper { padding: 1rem; }
 }
 
 .markdown-content li.clickable-suggestion {

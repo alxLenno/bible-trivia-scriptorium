@@ -195,7 +195,7 @@ export const getNativeBookNames = async (version = 'KJV') => {
       for (let i = 0; i < bookNode.attributes.length; i++) {
         const val = bookNode.attributes[i].value;
         // Avoid extracting numeric ID attributes if string names are available
-        if (isNaN(parseInt(val)) && val.length > bestName.length) {
+        if (!/^\d+$/.test(val) && val.length > bestName.length) {
           bestName = val;
         }
       }

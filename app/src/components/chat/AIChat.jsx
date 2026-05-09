@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, Search, Sparkles, Send } from 'lucide-react';
+// Services
+import { generateAITriviaSet, sendChatToAI, getChatSessions, getChatSession, saveChatSession, deleteChatSession, lookupVerses, generateTTS } from '../../aiService';
+import { AVAILABLE_VERSIONS, getNativeBookNames } from '../../bibleLookup';
 import BibleTextWithRefs from '../common/BibleTextWithRefs';
 import VerseLookup from '../common/VerseLookup';
 import './AIChat.css';
@@ -27,6 +30,48 @@ const AIChat = ({
   onExit 
 }) => {
   const [visibleCount, setVisibleCount] = useState(10);
+  const audioQueueRef = useRef([]);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleReadAloud = async (text) => {
+    if (isPlaying) {
+      window.speechSynthesis.cancel(); // Safety stop
+      audioQueueRef.current.forEach(audio => audio.pause());
+      audioQueueRef.current = [];
+      setIsPlaying(false);
+      return;
+    }
+
+    setIsPlaying(true);
+    
+    // 1. Split text into chunks (sentences)
+    const chunks = text.match(/[^.!?]+[.!?]+/g) || [text];
+    
+    const playNext = async (index) => {
+      if (index >= chunks.length) {
+        setIsPlaying(false);
+        return;
+      }
+
+      const audioUrl = await generateTTS(chunks[index]);
+      if (audioUrl) {
+        const audio = new Audio(audioUrl);
+        audioQueueRef.current.push(audio);
+        audio.onended = () => playNext(index + 1);
+        audio.play().catch(e => {
+          console.error("Playback failed", e);
+          playNext(index + 1);
+        });
+      } else {
+        // Fallback to Web Speech if AI TTS fails for a chunk
+        const speech = new SpeechSynthesisUtterance(chunks[index]);
+        speech.onend = () => playNext(index + 1);
+        window.speechSynthesis.speak(speech);
+      }
+    };
+
+    playNext(0);
+  };
 
   return (
     <div className="chat-layout">
@@ -97,11 +142,12 @@ const AIChat = ({
                   onLookup={handleVerseLookup} 
                   onSuggestionClick={m.role === 'ai' ? (text) => setChatInput(text) : null}
                 />
-                {m.audio && (
-                  <button className="play-audio-btn" onClick={() => new Audio(m.audio).play()}>
-                    🔊 Listen to Insight
-                  </button>
-                )}
+                <button 
+                  className={`play-audio-btn ${isPlaying ? 'playing' : ''}`} 
+                  onClick={() => handleReadAloud(m.text)}
+                >
+                  {isPlaying ? '⏹ Stop Scribe' : '🔊 Listen to Scribe'}
+                </button>
               </div>
             </div>
           ))}
