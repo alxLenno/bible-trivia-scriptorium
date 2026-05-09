@@ -94,7 +94,8 @@ export const localLookupVerses = async (reference, version = 'KJV') => {
   let targetBookNode = null;
   
   // Attempt 1: Index Mapping (Solves cross-language issues like English "Genesis" -> Swahili "Mwanzo")
-  const targetIndex = STANDARD_BOOKS.findIndex(b => b.toLowerCase() === bookName.trim().toLowerCase());
+  const normalize = s => s.replace(/\s+/g, '').toLowerCase();
+  const targetIndex = STANDARD_BOOKS.findIndex(b => normalize(b) === normalize(bookName));
   
   if (targetIndex !== -1 && targetIndex < pureBooks.length) {
     targetBookNode = pureBooks[targetIndex];
