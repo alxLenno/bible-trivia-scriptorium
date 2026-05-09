@@ -1,0 +1,35 @@
+\section{Methodology: The Scriptorium Cycle}
+The Scriptorium Framework operates through a recursive cycle consisting of three distinct layers of analysis \cite{schon1983}:
+
+\begin{enumerate}
+    \item \textbf{The Linguistic Scalpel:} Utilizing semantic domain analysis to uncover the root intensity of original languages (Greek/Hebrew).
+    \item \textbf{The Historical-Critical Shock:} Grounding the text in its original socio-cultural and legal context \cite{malina2001}.
+    \item \textbf{The Pauline Bridge:} Mapping relational roles (Advocate, Offender, Reconciler) to modern personal application \cite{hendricks1991}.
+\end{enumerate}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=2cm, auto, scale=0.8, every node/.style={scale=0.8}]
+    % Nodes
+    \node (obs) [draw, rounded corners, fill=blue!10, text width=2.5cm, align=center] {Observation \\ (Linguistic Scalpel)};
+    \node (int) [below left of=obs, node distance=4cm, draw, rounded corners, fill=green!10, text width=2.5cm, align=center] {Interpretation \\ (Historical Shock)};
+    \node (app) [below right of=obs, node distance=4cm, draw, rounded corners, fill=red!10, text width=2.5cm, align=center] {Application \\ (Pauline Bridge)};
+    \node (rel) [below of=obs, node distance=6cm, draw, circle, fill=yellow!20, text width=2cm, align=center] {Relational Growth};
+
+    % Central Partner
+    \node (partner) [draw, star, star points=7, fill=purple!20, node distance=3cm, below of=obs] {AI Scriptorium Partner};
+
+    % Path
+    \path [->, thick] (obs) edge (int);
+    \path [->, thick] (int) edge (rel);
+    \path [->, thick] (rel) edge (app);
+    \path [->, thick] (app) edge (obs);
+    
+    % Support lines
+    \draw [dashed, purple] (partner) -- (obs);
+    \draw [dashed, purple] (partner) -- (int);
+    \draw [dashed, purple] (partner) -- (app);
+\end{tikzpicture}
+\caption{The Scriptorium Cycle: A Recursive Model of AI-Augmented Study}
+\label{fig:cycle}
+\end{figure}
