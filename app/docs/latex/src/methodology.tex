@@ -1,35 +1,69 @@
 \section{Methodology: The Scriptorium Cycle}
-The Scriptorium Framework operates through a recursive cycle consisting of three distinct layers of analysis \cite{schon1983}:
+The Scriptorium Framework operates through a recursive Thinking Cycle, visualized in Fig. \ref{fig:cycle}. This cycle ensures that the study remains ``wholesome'' by providing layers of analysis that the user would not typically discover on their own. Following Vanhoozer's \cite{vanhoozer2005} model of ``Theodramatic'' hermeneutics, this methodology views interpretation not as a static data-point, but as a performance of relational truth. Osborne's \cite{osborne2006} hermeneutical spiral provides the structural logic: each pass through the cycle deepens understanding rather than merely repeating it.
 
-\begin{enumerate}
-    \item \textbf{The Linguistic Scalpel:} Utilizing semantic domain analysis to uncover the root intensity of original languages (Greek/Hebrew).
-    \item \textbf{The Historical-Critical Shock:} Grounding the text in its original socio-cultural and legal context \cite{malina2001}.
-    \item \textbf{The Pauline Bridge:} Mapping relational roles (Advocate, Offender, Reconciler) to modern personal application \cite{hendricks1991}.
-\end{enumerate}
+\subsection{Layer I: The Linguistic Scalpel (Observation)}
+The first layer corresponds to the \textit{Observation} stage of the Inductive Bible Study method \cite{traina1952,bauer2011}. The AI performs a deep semantic domain analysis on key terms, utilizing the taxonomic structures established by Louw and Nida \cite{louwnida1988}. Unlike a simple dictionary lookup, semantic domain analysis groups words by \textit{meaning fields} rather than alphabetical order, revealing relationships between terms that would otherwise remain hidden.
 
-\begin{figure}[htbp]
+For example, in the study of Philemon, the AI distinguishes between \textit{doulos} (Semantic Domain 87.76: ``slave---one who is in a permanent relation of servitude'') and \textit{diakonos} (Semantic Domain 35.20: ``servant/minister---one who renders service''). This distinction highlights how Paul's deliberate choice of language radically shifts the relational power dynamic from ownership to partnership. The ``Linguistic Scalpel'' cuts through the flattened meaning of modern translations to reveal the emotional and theological ``root intensity'' of the original text.
+
+\subsection{Layer II: The Historical-Critical Shock (Interpretation)}
+This layer corresponds to the \textit{Interpretation} stage and provides ``External Shock Data'' to disrupt modern projections \cite{malina2001}. Malina's social-scientific criticism is particularly valuable here, as it forces the reader to abandon anachronistic assumptions about ancient Mediterranean culture. In the Philemon case, the AI provides specific details about Roman law regarding fugitive slaves (\textit{fugitivi}), noting that under the \textit{Lex Fabia} and later \textit{senatus consulta}, harboring a runaway slave was punishable by severe penalties. This ensures the user understands that Paul was not merely asking for a ``favor,'' but was subverting a legal system that carried extreme consequences. This contextual anchoring prevents ``shallow application'' by raising the historical stakes to their proper intensity.
+
+Ricoeur's \cite{ricoeur1976} concept of ``distanciation'' is operative here: the text must first be understood as \textit{other}---as a product of a radically different world---before it can be appropriated into the reader's own horizon. The AI enforces this distanciation by presenting historical data that resists easy domestication.
+
+\subsection{Layer III: The Pauline Bridge (Application)}
+Finally, the AI maps these historical and linguistic insights to the user's personal context through the Inductive method \cite{hendricks1991}. By identifying relational archetypes (The Advocate, The Reconciler, The Offender), the AI helps the user ``bridge'' the gap between the 1st and 21st centuries. This is the ``fusion of horizons'' \cite{gadamer1960} in practice: the ancient text's horizon (Roman slavery, patronage, honor-shame culture) is fused with the user's modern horizon (workplace dynamics, family conflict, social justice) to produce a new, actionable understanding.
+
+Fee and Stuart \cite{fee2003} emphasize that application must always flow from sound exegesis, never from isolated proof-texting. The Scriptorium Framework enforces this principle by requiring that every application reference at least one linguistic or historical insight from the preceding layers.
+
+\begin{figure*}[t!]
 \centering
-\begin{tikzpicture}[node distance=2cm, auto, scale=0.8, every node/.style={scale=0.8}]
-    % Nodes
-    \node (obs) [draw, rounded corners, fill=blue!10, text width=2.5cm, align=center] {Observation \\ (Linguistic Scalpel)};
-    \node (int) [below left of=obs, node distance=4cm, draw, rounded corners, fill=green!10, text width=2.5cm, align=center] {Interpretation \\ (Historical Shock)};
-    \node (app) [below right of=obs, node distance=4cm, draw, rounded corners, fill=red!10, text width=2.5cm, align=center] {Application \\ (Pauline Bridge)};
-    \node (rel) [below of=obs, node distance=6cm, draw, circle, fill=yellow!20, text width=2cm, align=center] {Relational Growth};
+\begin{tikzpicture}[node distance=1.8cm, auto, scale=0.9, every node/.style={scale=0.9}]
+    % Styles
+    \tikzstyle{block} = [draw, rectangle, rounded corners, fill=blue!5, text width=2.6cm, align=center, minimum height=1.1cm, drop shadow]
+    \tikzstyle{circle_node} = [draw, circle, fill=yellow!5, text width=2cm, align=center, drop shadow]
+    \tikzstyle{partner} = [draw, star, star points=8, fill=purple!15, text width=1.5cm, align=center, drop shadow, inner sep=1pt]
 
-    % Central Partner
-    \node (partner) [draw, star, star points=7, fill=purple!20, node distance=3cm, below of=obs] {AI Scriptorium Partner};
+    % Center node
+    \node (partner) [partner] {AI Scriptorium Partner};
 
-    % Path
-    \path [->, thick] (obs) edge (int);
-    \path [->, thick] (int) edge (rel);
-    \path [->, thick] (rel) edge (app);
-    \path [->, thick] (app) edge (obs);
+    % Outer nodes
+    \node (obs) [block, above=of partner] {Linguistic Scalpel \\ (Observation)};
+    \node (int) [block, left=of partner, xshift=-0.5cm] {Historical Shock \\ (Interpretation)};
+    \node (app) [block, right=of partner, xshift=0.5cm] {Pauline Bridge \\ (Application)};
+    \node (rel) [circle_node, below=of partner] {\textbf{Relational \\ Growth}};
+
+    % Cycle Paths (Slightly curved to avoid the center)
+    \path [->, thick, line width=1pt] (obs) edge [bend right=25] (int);
+    \path [->, thick, line width=1pt] (int) edge [bend right=25] (rel);
+    \path [->, thick, line width=1pt] (rel) edge [bend right=25] (app);
+    \path [->, thick, line width=1pt] (app) edge [bend right=25] (obs);
     
     % Support lines
-    \draw [dashed, purple] (partner) -- (obs);
-    \draw [dashed, purple] (partner) -- (int);
-    \draw [dashed, purple] (partner) -- (app);
+    \draw [dashed, purple!40, thick, <->] (partner) -- (obs);
+    \draw [dashed, purple!40, thick, <->] (partner) -- (int);
+    \draw [dashed, purple!40, thick, <->] (partner) -- (app);
+    \draw [dashed, purple!40, thick, <->] (partner) -- (rel);
 \end{tikzpicture}
-\caption{The Scriptorium Cycle: A Recursive Model of AI-Augmented Study}
+\caption{The Scriptorium Cycle: A Recursive Model of AI-Augmented Relational Study. The AI Partner (center) supports each layer while the outer cycle represents the hermeneutical spiral \cite{osborne2006}.}
 \label{fig:cycle}
-\end{figure}
+\end{figure*}
+
+\subsection{Comparative Value Analysis}
+Table \ref{tab:comparison} defines the shifts in interaction metrics between traditional AI paradigms and the Scriptorium Framework. These metrics are derived from the pedagogical principles of Vygotsky's \cite{vygotsky1978} scaffolding theory and Sch\"{o}n's \cite{schon1983} reflective practice model.
+
+\begin{table}[h]
+\caption{Comparison of Bible Study Paradigms}
+\label{tab:comparison}
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Metric} & \textbf{Traditional AI} & \textbf{Scriptorium} \\ \midrule
+\textbf{User Role} & Consumer & Relational Partner \\ \midrule
+\textbf{Interaction} & Deductive Retrieval & Socratic Dialogue \\ \midrule
+\textbf{Input Method} & Single-Pass Query & Recursive Spiral \\ \midrule
+\textbf{Linguistic Depth} & Dictionary Lookup & Semantic Domains \\ \midrule
+\textbf{Primary Value} & Speed of Answer & Depth of Intimacy \\ \midrule
+\textbf{Final Goal} & Knowledge & Transformation \\ \bottomrule
+\end{tabular}
+\end{table}

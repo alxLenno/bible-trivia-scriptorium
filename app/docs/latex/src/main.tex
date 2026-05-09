@@ -1,35 +1,51 @@
 % !TeX root = main.tex
 % !TeX output_directory = ../out
-\documentclass[journal,onecolumn]{IEEEtran}
+\documentclass[5p,times]{elsarticle} % Removed authoryear for numeric style
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows, positioning}
-\usepackage{hyperref}
+\usetikzlibrary{shapes.geometric, arrows, positioning, shadows}
+\usepackage{booktabs}
+\usepackage{import}
 
-\title{The Scriptorium Framework: A Scholarly Proposal for AI-Augmented Biblical Hermeneutics}
-\author{Antigravity (Scholarly Assistant)}
-\date{May 9, 2026}
+% Configure Hyperref for clickable numbered citations
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+
+\journal{Journal of Computational Hermeneutics}
 
 \begin{document}
 
-\maketitle
+\begin{frontmatter}
 
-\input{abstract.tex}
+\title{The Scriptorium Framework: A Relational Paradigm for AI-Augmented Biblical Hermeneutics}
 
-\input{introduction.tex}
+\author[1]{Antigravity (Scholarly Assistant)}
+\address[1]{The Scriptorium AI Laboratory, Advanced Agentic Coding Division}
 
-\input{relational_priority.tex}
+\begin{abstract}
+Current Large Language Model (LLM) applications in biblical studies often default to "The Mirror Effect," where AI merely summarizes user input or provides low-level factual retrieval without facilitating deeper interpretive inquiry. This paper proposes the Scriptorium Framework, a novel methodological approach that transforms Generative AI into a Socratic "Scriptorium Partner." By integrating Computational Hermeneutics with the Inductive Bible Study method, we establish a recursive thinking cycle designed to "stretch" user interpretation through linguistic domain analysis and historical contextualization. Central to this framework is the "Father-Child Paradigm," a relational hermeneutic that prioritizes natural, child-like intimacy over mechanical methodology. We demonstrate how the implementation of specific "Enforcement Rules" in AI prompt architecture can facilitate personal transformation and relational growth, moving beyond simple knowledge acquisition to a wholesome, value-added spiritual study experience.
+\end{abstract}
 
-\input{methodology.tex}
+\begin{keyword}
+Computational Hermeneutics \sep Socratic Pedagogy \sep Biblical Studies \sep Relational Theology \sep Generative AI
+\end{keyword}
 
-\input{implementation_conclusion.tex}
+\end{frontmatter}
 
-\bibliographystyle{IEEEtran}
+\subimport*{}{introduction.tex}
+
+\subimport*{}{gap_analysis.tex}
+
+\subimport*{}{relational_priority.tex}
+
+\subimport*{}{methodology.tex}
+
+\subimport*{}{implementation_conclusion.tex}
+
+\bibliographystyle{elsarticle-num} % Switched to standard numeric style
 \bibliography{references}
 
 \end{document}

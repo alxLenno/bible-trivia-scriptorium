@@ -1,11 +1,32 @@
-\section{Implementation \& Enforcement}
-To translate these scholarly principles into the Bible Trivia Scriptorium application, the following enforcement rules are applied to the AI backend:
+\section{Implementation \& Enforcement Rules}
+To operationalize this framework within the Bible Trivia Scriptorium application, we have developed three core ``Enforcement Rules'' for the AI prompt architecture. These rules ensure the AI moves beyond the ``Mirror Effect'' \cite{bender2021parrots} to provide a wholesome value-add. Each rule is grounded in a specific pedagogical or theological principle.
 
+\begin{enumerate}
+    \item \textbf{The Stretching Rule (Deeper Insight):} For every user observation, the AI must provide one ``External Fact'' (linguistic or historical) that is \textit{not} present in the user's input. This rule operationalizes Vygotsky's \cite{vygotsky1978} Zone of Proximal Development: the AI identifies the boundary of the user's current knowledge and provides scaffolding to help them reach the next level. If the user identifies a lesson on ``forgiveness,'' the AI must provide a linguistic nuance (e.g., the root of \textit{charizomai}---to give freely as a gift of grace, Semantic Domain 57.102 \cite{louwnida1988}) to stretch the user's understanding beyond the surface.
+    
+    \item \textbf{The Socratic Rule (Recursive Dialogue):} Every AI response must conclude with a ``High-Stakes Question.'' Following the recursive thinking model proposed by Qi et al. \cite{qi2023socratic}, this question must force the user to apply the identified biblical value to a specific, difficult modern relational scenario (e.g., ``In your current conflict with X, how would accepting them `as you would accept Paul himself' change your next action?''). This rule prevents the interaction from becoming a passive information transfer and instead enforces the ``hermeneutical spiral'' \cite{osborne2006} by demanding that the user re-enter the cycle at a deeper level.
+    
+    \item \textbf{The Father's Heart Rule (Relational Anchoring):} The AI is instructed to periodically redirect the focus from ``rules'' to ``heart.'' It must ask: ``What does this passage reveal about the Father's heart toward you in your current state?'' This rule is grounded in the \textit{Contemplatio} stage of \textit{Lectio Divina} \cite{guigo1150}---the moment where active analysis yields to receptive resting in the presence of God. It ensures the method remains a servant to the relationship, not a master over it.
+\end{enumerate}
+
+\subsection{Prompt Architecture}
+The three rules are implemented as system-level instructions in the AI's prompt chain. At a technical level, this involves:
 \begin{itemize}
-    \item \textbf{The Stretching Rule:} Providing additional linguistic/historical facts to every user takeaway.
-    \item \textbf{The Socratic Rule:} Ending every interaction with a provocative question for modern application.
-    \item \textbf{The Father's Heart Rule:} Prompting the user to consider the Father’s personal intent within the passage.
+    \item A \textbf{pre-processing layer} that identifies the user's current ``hermeneutical position'' (Observation, Interpretation, or Application) and selects the appropriate response strategy.
+    \item A \textbf{non-mirroring constraint} that rejects any AI response where more than 60\% of the content is derived directly from the user's own input.
+    \item A \textbf{relational checkpoint} triggered every 3--5 exchanges, which invokes the Father's Heart Rule regardless of the current analytical layer.
 \end{itemize}
 
+\section{Limitations \& Future Work}
+While the Scriptorium Framework provides a robust theoretical and architectural foundation, several limitations must be acknowledged.
+
+First, the framework has not yet been empirically validated through controlled user studies. Future research should employ mixed-methods designs to measure the impact of the three Enforcement Rules on user-reported spiritual formation, interpretive depth, and long-term engagement.
+
+Second, the current implementation relies on a single LLM backend. The quality of the ``Linguistic Scalpel'' is constrained by the model's training data, which may not include the full depth of Louw-Nida \cite{louwnida1988} semantic domain classifications. Future iterations should explore fine-tuning on specialized biblical corpora or integrating external lexical APIs.
+
+Third, the ``Father-Child Paradigm,'' while theologically grounded, requires careful cultural adaptation. Not all users will associate the ``Father'' metaphor with safety and intimacy; for some, cultural or personal trauma may complicate this framing. Future work should incorporate Nouwen's \cite{nouwen1992} observation that the journey to the Father often passes through the experience of being the ``lost son'' first.
+
 \section{Conclusion}
-The Scriptorium Framework represents a paradigm shift from information consumption to relational engagement. By anchoring AI interactions in both technical rigor and child-like intimacy, the framework ensures that sacred texts remain a living medium for personal and relational transformation.
+The Scriptorium Framework represents a paradigm shift from information retrieval to relational transformation. By anchoring GenAI interactions in technical rigor---Semantic Domain Analysis \cite{louwnida1988}, Social-Scientific Criticism \cite{malina2001}, and Recursive Socratic Questioning \cite{qi2023socratic}---and the Father-Child Paradigm \cite{packer1973,nouwen1992,buber1923}, the framework ensures that Bible study remains what it was always meant to be: a natural, child-like encounter with the Divine.
+
+The ancient monks of the Scriptorium copied texts by hand, not as a mechanical task, but as an act of devotion and formation. In the same spirit, the Scriptorium Framework invites the modern reader to engage with Scripture not as a consumer of information, but as a partner in an ongoing, recursive conversation with the living God.
