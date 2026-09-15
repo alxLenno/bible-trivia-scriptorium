@@ -58,6 +58,12 @@ graph TD
    npm run dev
    ```
 
+### Backend connection
+The frontend uses `VITE_API_BASE`, defaulting to the hosted PythonAnywhere API.
+For a local backend running on port 5555, open the local frontend with `?env=local`.
+Use `?env=prod` to clear that saved override and reconnect to the hosted API.
+Restart Vite after changing environment files. Hosted builds ignore local-only backend URLs.
+
 ### Adding New Bible Versions
 1. Place your Bible XML file in `public/bible/`.
 2. The app will automatically discover the file and attempt to detect its language upon selection.

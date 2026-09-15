@@ -1,5 +1,5 @@
-// Dynamically switch between local and production
-// If URL has ?env=local, use local backend. If ?env=prod, use production backend.
+import { resolveApiBase } from './apiConfig.js';
+
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('env') === 'local') {
   localStorage.setItem('aby_env', 'local');
@@ -7,29 +7,38 @@ if (urlParams.get('env') === 'local') {
   localStorage.removeItem('aby_env');
 }
 
-const isLocalOverride = localStorage.getItem('aby_env') === 'local';
-const isDevelopment = import.meta.env.DEV || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-export const API_BASE = (isDevelopment || isLocalOverride)
-  ? 'http://127.0.0.1:5555/api' 
-  : (import.meta.env.VITE_API_BASE || 'https://abytrivia.pythonanywhere.com/api');
+export const API_BASE = resolveApiBase({
+  hostname: window.location.hostname,
+  configuredBase: import.meta.env.VITE_API_BASE,
+  override: urlParams.get('env') || localStorage.getItem('aby_env'),
+});
 export const STATS_API = API_BASE;
 
 // Create a new game room
 export const createGameRoom = async (hostUser, nickname, questions, config) => {
-  const response = await fetch(`${API_BASE}/rooms`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      uid: hostUser.uid,
-      name: nickname || hostUser.displayName,
-      photo: hostUser.photoURL,
-      config: config
-    })
-  });
-  
-  const data = await response.json();
-  if (!data.success) throw new Error(data.error || 'Failed to create room');
+  let response;
+  try {
+    response = await fetch(`${API_BASE}/rooms`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        uid: hostUser.uid,
+        name: nickname || hostUser.displayName,
+        photo: hostUser.photoURL,
+        config: config
+      })
+    });
+
+  } catch {
+    throw new Error('Unable to connect to the room server. Check your connection and try again.');
+  }
+  let data;
+  try {
+    data = await response.json();
+  } catch {
+    throw new Error(`The room server is unavailable (HTTP ${response.status}). Please try again shortly.`);
+  }
+  if (!response.ok || !data.success) throw new Error(data.error || 'Failed to create room');
   
   return data.code;
 };
